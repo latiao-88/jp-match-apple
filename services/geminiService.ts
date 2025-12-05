@@ -4,7 +4,13 @@ import { GameConfig, JLPTLevel, WordPair } from "../types";
 // Safety check to avoid "process is not defined" error in browsers
 const getApiKey = () => {
   try {
-    if (typeof process !== 'undefined' && process.env) {
+    // Check if import.meta.env exists (Vite standard)
+    // Cast to any to avoid TypeScript errors regarding 'env' property on ImportMeta
+    if ((import.meta as any) && (import.meta as any).env && (import.meta as any).env.VITE_API_KEY) {
+      return (import.meta as any).env.VITE_API_KEY;
+    }
+    // Fallback for Node-like environments
+    if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
       return process.env.API_KEY;
     }
   } catch (e) {
@@ -13,20 +19,23 @@ const getApiKey = () => {
   return '';
 };
 
-const ai = new GoogleGenAI({ apiKey: getApiKey() });
-
 const THEMES = [
   "Daily Life", "Travel & Transport", "School & Education", "Nature & Animals", 
   "Food & Cooking", "Business & Work", "Emotions & Personality", "House & Home",
   "Shopping", "Health & Body", "Weather", "Hobbies & Sports"
 ];
 
+// Lazy initialization logic moved inside the function to prevent top-level crashes
 export const generateWordPairs = async (config: GameConfig): Promise<WordPair[]> => {
   const apiKey = getApiKey();
+  
   if (!apiKey) {
     console.warn("No API Key found, using fallback data.");
     return getFallbackData();
   }
+
+  // Initialize AI instance strictly when needed
+  const ai = new GoogleGenAI({ apiKey });
 
   const model = "gemini-2.5-flash";
   const randomTheme = THEMES[Math.floor(Math.random() * THEMES.length)];
@@ -92,7 +101,7 @@ export const generateWordPairs = async (config: GameConfig): Promise<WordPair[]>
       config: {
         responseMimeType: "application/json",
         responseSchema: schema,
-        temperature: 0.9, // Higher temperature for more randomness
+        temperature: 0.9,
       },
     });
 
