@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Peppa Word Match</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              peppa: {
+                pink: '#FAD0C9', // Skin
+                dress: '#E5303D', // Dress
+                darkPink: '#E8989C', // Darker skin tone/nose
+                mud: '#8F684C', // Puddle
+                grass: '#65B656', // Hill
+                sky: '#92DFF2', // Sky
+                sun: '#F9EA50'  // Sun
+              }
+            },
+            fontFamily: {
+              rounded: ['"M PLUS Rounded 1c"', '"Hiragino Maru Gothic ProN"', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'M PLUS Rounded 1c', sans-serif;
+        background-color: #92DFF2; /* Sky blue bg */
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .ruby-text rt {
+        font-size: 0.6em;
+        color: #555;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
