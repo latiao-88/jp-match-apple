@@ -1,8 +1,19 @@
-
 import { GoogleGenAI, Type, Schema } from "@google/genai";
 import { GameConfig, JLPTLevel, WordPair } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Safety check to avoid "process is not defined" error in browsers
+const getApiKey = () => {
+  try {
+    if (typeof process !== 'undefined' && process.env) {
+      return process.env.API_KEY;
+    }
+  } catch (e) {
+    // Ignore error
+  }
+  return '';
+};
+
+const ai = new GoogleGenAI({ apiKey: getApiKey() });
 
 const THEMES = [
   "Daily Life", "Travel & Transport", "School & Education", "Nature & Animals", 
@@ -11,7 +22,8 @@ const THEMES = [
 ];
 
 export const generateWordPairs = async (config: GameConfig): Promise<WordPair[]> => {
-  if (!process.env.API_KEY) {
+  const apiKey = getApiKey();
+  if (!apiKey) {
     console.warn("No API Key found, using fallback data.");
     return getFallbackData();
   }
@@ -24,7 +36,7 @@ export const generateWordPairs = async (config: GameConfig): Promise<WordPair[]>
   IMPORTANT: Do NOT use very common words like "Taberu" (Eat) or "Miru" (See) unless absolutely necessary. Randomize the vocabulary choice.
   `;
   
-  if (config.conjugations.length > 0) {
+  if (config.conjugations && config.conjugations.length > 0) {
     const conjugationList = config.conjugations.join(", ");
     prompt += `
     Task: Japanese VERB CONJUGATION practice.
@@ -33,7 +45,7 @@ export const generateWordPairs = async (config: GameConfig): Promise<WordPair[]>
     The Chinese translation must accurately reflect the conjugation nuance (e.g., Passive "被...", Causative "让...", Potential "能...").`;
   } else {
     prompt += `
-    Difficulty Level: ${config.level}.
+    Difficulty Level: ${config.level || JLPTLevel.N5}.
     Include a mix of Nouns, Verbs, and Adjectives.`;
   }
 
