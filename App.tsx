@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, Component, ErrorInfo, ReactNode } from 'react';
 import { GameState, GameConfig, WordPair } from './types';
 import MenuScreen from './components/MenuScreen';
 import GameScreen from './components/GameScreen';
@@ -7,7 +6,47 @@ import { generateWordPairs } from './services/geminiService';
 import { saveProgress, addToReviewList, removeReviewItemsByText } from './services/storageService';
 import { RefreshCw } from 'lucide-react';
 
-const App: React.FC = () => {
+interface ErrorBoundaryProps {
+  children: ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: string;
+}
+
+// --- Error Boundary Component ---
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false, error: '' };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error: error.toString() };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error("Uncaught error:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="p-8 text-center">
+          <h1 className="text-xl font-bold text-red-500">Something went wrong.</h1>
+          <p className="text-gray-600 mt-2">{this.state.error}</p>
+          <button onClick={() => window.location.reload()} className="mt-4 bg-gray-200 px-4 py-2 rounded">
+            Reload Page
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+const AppContent: React.FC = () => {
   const [gameState, setGameState] = useState<GameState>(GameState.MENU);
   const [currentData, setCurrentData] = useState<WordPair[]>([]);
   const [loadingError, setLoadingError] = useState<string | null>(null);
@@ -140,6 +179,14 @@ const App: React.FC = () => {
         )}
       </div>
     </div>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <ErrorBoundary>
+      <AppContent />
+    </ErrorBoundary>
   );
 };
 

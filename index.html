@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Peppa Word Match</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -34,6 +34,7 @@
         background-color: #92DFF2; /* Sky blue bg */
         touch-action: manipulation;
         -webkit-tap-highlight-color: transparent;
+        overflow-x: hidden;
       }
       .ruby-text rt {
         font-size: 0.6em;
@@ -56,6 +57,23 @@
 </head>
   <body>
     <div id="root"></div>
+    <!-- Global Error Handler for Mobile Debugging -->
+    <script>
+      window.onerror = function(message, source, lineno, colno, error) {
+        var div = document.createElement('div');
+        div.style.position = 'fixed';
+        div.style.top = '0';
+        div.style.left = '0';
+        div.style.width = '100%';
+        div.style.backgroundColor = 'red';
+        div.style.color = 'white';
+        div.style.padding = '20px';
+        div.style.zIndex = '9999';
+        div.style.wordBreak = 'break-all';
+        div.innerText = 'App Error: ' + message + '\nLine: ' + lineno;
+        document.body.appendChild(div);
+      };
+    </script>
     <script type="module" src="./index.tsx"></script>
   </body>
 </html>
