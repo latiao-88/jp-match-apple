@@ -76,8 +76,7 @@
         background: transparent;
       }
     </style>
-    <!-- REMOVED IMPORTMAP TO FIX MOBILE CRASH -->
-<script type="importmap">
+  <script type="importmap">
 {
   "imports": {
     "react": "https://aistudiocdn.com/react@^19.2.0",
@@ -111,21 +110,6 @@
         // Only show error if we are still on the loading screen
         if (root && root.innerText.indexOf('Loading Game') !== -1) {
            console.error("Critical Init Error:", event.error || event.message);
-           // Uncomment below to see errors on phone screen if needed
-           /*
-           var div = document.createElement('div');
-           div.style.position = 'fixed';
-           div.style.top = '0';
-           div.style.left = '0';
-           div.style.width = '100%';
-           div.style.height = '100%';
-           div.style.backgroundColor = 'white';
-           div.style.color = 'red';
-           div.style.padding = '20px';
-           div.style.zIndex = '9999';
-           div.innerHTML = '<h3>Error:</h3><pre>' + (event.message || event) + '</pre>';
-           document.body.appendChild(div);
-           */
         }
       });
     </script>
