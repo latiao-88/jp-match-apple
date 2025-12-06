@@ -8,7 +8,7 @@ const THEMES = [
 
 // Lazy initialization logic moved inside the function to prevent top-level crashes
 export const generateWordPairs = async (config: GameConfig): Promise<WordPair[]> => {
-  // @ts-ignore
+  // Vite replaces process.env.API_KEY with the string value at build time
   const apiKey = process.env.API_KEY;
   
   if (!apiKey) {
