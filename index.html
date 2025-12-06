@@ -76,7 +76,8 @@
         background: transparent;
       }
     </style>
-  <script type="importmap">
+    <!-- REMOVED IMPORTMAP TO FIX MOBILE CRASH -->
+<script type="importmap">
 {
   "imports": {
     "react": "https://aistudiocdn.com/react@^19.2.0",
@@ -98,8 +99,8 @@
     <div id="root">
       <!-- Loading Placeholder -->
       <div style="height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; flex-direction: column;">
-        <div style="font-size: 50px; margin-bottom: 20px; animation: bounce 1s infinite;">🐷</div>
-        <div style="color: #E5303D; font-weight: bold; font-size: 18px;">Starting App...</div>
+        <div style="font-size: 60px; margin-bottom: 20px; animation: bounce 1s infinite;">🐷</div>
+        <div style="color: #E5303D; font-weight: bold; font-size: 20px; font-family: sans-serif;">Loading Game...</div>
       </div>
     </div>
 
@@ -108,20 +109,23 @@
       window.addEventListener('error', function(event) {
         var root = document.getElementById('root');
         // Only show error if we are still on the loading screen
-        if (root && root.innerText.indexOf('Starting App') !== -1) {
+        if (root && root.innerText.indexOf('Loading Game') !== -1) {
+           console.error("Critical Init Error:", event.error || event.message);
+           // Uncomment below to see errors on phone screen if needed
+           /*
            var div = document.createElement('div');
            div.style.position = 'fixed';
            div.style.top = '0';
            div.style.left = '0';
            div.style.width = '100%';
            div.style.height = '100%';
-           div.style.backgroundColor = 'rgba(255, 0, 0, 0.9)';
-           div.style.color = 'white';
+           div.style.backgroundColor = 'white';
+           div.style.color = 'red';
            div.style.padding = '20px';
            div.style.zIndex = '9999';
-           div.style.overflow = 'auto';
-           div.innerHTML = '<h3>Startup Error:</h3><pre>' + (event.message || event) + '</pre>';
+           div.innerHTML = '<h3>Error:</h3><pre>' + (event.message || event) + '</pre>';
            document.body.appendChild(div);
+           */
         }
       });
     </script>

@@ -158,8 +158,8 @@ const GameScreen: React.FC<GameScreenProps> = ({ data, onFinish, onBack }) => {
 };
 
 const CardComponent: React.FC<{ card: CardItem, onClick: () => void }> = ({ card, onClick }) => {
-  // Extra cute styles: thicker borders, rounder corners
-  let baseClasses = "relative flex-1 rounded-3xl shadow-md border-[3px] flex flex-col items-center justify-center p-1 md:p-2 cursor-pointer transition-all active:scale-95 select-none touch-manipulation min-h-[70px] md:min-h-[85px] overflow-hidden";
+  // Extra cute styles: thicker borders, ROUNDER corners (rounded-[2rem])
+  let baseClasses = "relative flex-1 rounded-[2rem] shadow-md border-[4px] flex flex-col items-center justify-center p-1 md:p-2 cursor-pointer transition-all active:scale-95 select-none touch-manipulation min-h-[70px] md:min-h-[85px] overflow-hidden";
   let colorClasses = "";
   
   if (card.isMatched) {
@@ -179,7 +179,7 @@ const CardComponent: React.FC<{ card: CardItem, onClick: () => void }> = ({ card
       </div>
       {/* Audio icon for JP cards */}
       {card.type === 'JP' && !card.isMatched && (
-        <div className="absolute bottom-1 right-2 bg-peppa-pink rounded-full p-1 opacity-60">
+        <div className="absolute bottom-2 right-3 bg-peppa-pink rounded-full p-1 opacity-60">
            <Volume2 size={12} className="text-white" />
         </div>
       )}
