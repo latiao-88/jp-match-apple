@@ -4,8 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Peppa Word Match</title>
-    <!-- Polyfill for process to prevent crashes in mobile browsers -->
-    <script>window.process = { env: {} };</script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -95,7 +93,7 @@
       <!-- Loading Placeholder -->
       <div style="height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; flex-direction: column;">
         <div style="font-size: 50px; margin-bottom: 20px;">🐷</div>
-        <div style="color: #E5303D; font-weight: bold; font-size: 18px;">Loading Game...</div>
+        <div style="color: #E5303D; font-weight: bold; font-size: 18px;">Loading Peppa Game...</div>
       </div>
     </div>
 
@@ -104,7 +102,7 @@
       window.addEventListener('error', function(event) {
         var root = document.getElementById('root');
         // Only show error if we are still on the loading screen (meaning React failed to take over)
-        if (root && root.innerHTML.indexOf('Loading Game') !== -1) {
+        if (root && root.innerHTML.indexOf('Loading Peppa Game') !== -1) {
            var div = document.createElement('div');
            div.style.position = 'fixed';
            div.style.top = '0';

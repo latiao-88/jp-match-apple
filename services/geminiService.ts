@@ -8,16 +8,14 @@ const THEMES = [
 
 // Lazy initialization logic moved inside the function to prevent top-level crashes
 export const generateWordPairs = async (config: GameConfig): Promise<WordPair[]> => {
-  // Vite replaces process.env.API_KEY with the string value at build time
-  const apiKey = process.env.API_KEY;
   
-  if (!apiKey) {
+  if (!process.env.API_KEY) {
     console.warn("No API Key found. Using Offline Mode.");
     return getFallbackData();
   }
 
   // Initialize AI instance strictly when needed
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
   const model = "gemini-2.5-flash";
   const randomTheme = THEMES[Math.floor(Math.random() * THEMES.length)];
