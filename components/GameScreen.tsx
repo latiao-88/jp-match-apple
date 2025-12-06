@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { WordPair, CardItem } from '../types';
 import RubyText from './RubyText';
 import { Volume2, Home } from 'lucide-react';
@@ -126,28 +126,28 @@ const GameScreen: React.FC<GameScreenProps> = ({ data, onFinish, onBack }) => {
   const cnCards = cards.filter(c => c.type === 'CN');
   
   return (
-    <div className="flex flex-col h-full max-w-5xl mx-auto px-2 py-4">
+    <div className="flex flex-col h-full max-w-5xl mx-auto px-3 py-6 relative z-20">
       {/* Header */}
-      <div className="flex justify-between items-center mb-4 px-2">
-        <button onClick={onBack} className="bg-white p-3 rounded-full shadow text-peppa-mud hover:bg-gray-100 flex items-center justify-center transition-transform active:scale-95">
-          <Home size={24} />
+      <div className="flex justify-between items-center mb-6 px-2">
+        <button onClick={onBack} className="bg-white p-3 rounded-full shadow-lg border-2 border-peppa-pink text-peppa-dress hover:bg-gray-50 flex items-center justify-center transition-transform active:scale-95">
+          <Home size={28} />
         </button>
-        <div className="bg-white px-4 py-2 rounded-full shadow text-peppa-dress font-bold">
+        <div className="bg-white px-6 py-2 rounded-full shadow-lg border-2 border-peppa-pink text-peppa-dress font-bold text-xl">
           {matchedPairIds.length} / {data.length}
         </div>
       </div>
 
       {/* Game Grid */}
-      <div className="flex-1 flex gap-2 md:gap-4 overflow-hidden">
+      <div className="flex-1 flex gap-3 md:gap-6 overflow-hidden pb-4">
         {/* Left Column (JP) - Wider */}
-        <div className="flex-[1.4] flex flex-col gap-2 md:gap-3">
+        <div className="flex-[1.4] flex flex-col gap-3 md:gap-4 justify-between">
           {jpCards.map(card => (
              <CardComponent key={card.id} card={card} onClick={() => handleCardClick(card)} />
           ))}
         </div>
         
         {/* Right Column (CN) */}
-        <div className="flex-1 flex flex-col gap-2 md:gap-3">
+        <div className="flex-1 flex flex-col gap-3 md:gap-4 justify-between">
           {cnCards.map(card => (
              <CardComponent key={card.id} card={card} onClick={() => handleCardClick(card)} />
           ))}
@@ -158,17 +158,18 @@ const GameScreen: React.FC<GameScreenProps> = ({ data, onFinish, onBack }) => {
 };
 
 const CardComponent: React.FC<{ card: CardItem, onClick: () => void }> = ({ card, onClick }) => {
-  let baseClasses = "relative flex-1 rounded-xl shadow-sm border-2 flex flex-col items-center justify-center p-1 md:p-2 cursor-pointer transition-all active:scale-95 select-none touch-manipulation min-h-[70px] md:min-h-[85px] overflow-hidden";
+  // Extra cute styles: thicker borders, rounder corners
+  let baseClasses = "relative flex-1 rounded-3xl shadow-md border-[3px] flex flex-col items-center justify-center p-1 md:p-2 cursor-pointer transition-all active:scale-95 select-none touch-manipulation min-h-[70px] md:min-h-[85px] overflow-hidden";
   let colorClasses = "";
   
   if (card.isMatched) {
-    colorClasses = "bg-green-100 border-peppa-grass opacity-50"; 
+    colorClasses = "bg-green-100 border-peppa-grass opacity-40 grayscale"; 
   } else if (card.isError) {
-    colorClasses = "bg-red-100 border-red-500 animate-pulse"; 
+    colorClasses = "bg-red-50 border-red-400 animate-shake"; 
   } else if (card.isSelected) {
-    colorClasses = "bg-peppa-sky border-blue-500 ring-2 ring-blue-300"; 
+    colorClasses = "bg-white border-peppa-sky ring-4 ring-peppa-sky ring-opacity-50 transform scale-105 z-10"; 
   } else {
-    colorClasses = "bg-white border-peppa-pink hover:border-peppa-darkPink shadow-peppa-pink"; 
+    colorClasses = "bg-white border-peppa-pink hover:border-peppa-darkPink"; 
   }
 
   return (
@@ -176,11 +177,15 @@ const CardComponent: React.FC<{ card: CardItem, onClick: () => void }> = ({ card
       <div className="w-full h-full flex items-center justify-center text-center">
         {card.content}
       </div>
+      {/* Audio icon for JP cards */}
       {card.type === 'JP' && !card.isMatched && (
-        <Volume2 size={14} className="absolute bottom-1 right-1 text-peppa-dress opacity-40" />
+        <div className="absolute bottom-1 right-2 bg-peppa-pink rounded-full p-1 opacity-60">
+           <Volume2 size={12} className="text-white" />
+        </div>
       )}
+      {/* Checkmark overlay */}
       {card.isMatched && (
-        <div className="absolute inset-0 flex items-center justify-center text-peppa-grass opacity-100 font-bold text-2xl">
+        <div className="absolute inset-0 flex items-center justify-center text-peppa-grass opacity-100 font-bold text-3xl">
           ✓
         </div>
       )}
