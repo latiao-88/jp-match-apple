@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import { WordPair, CardItem } from '../types';
 import RubyText from './RubyText';
@@ -130,7 +129,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ data, onFinish, onBack }) => {
     <div className="flex flex-col h-full max-w-5xl mx-auto px-2 py-4">
       {/* Header */}
       <div className="flex justify-between items-center mb-4 px-2">
-        <button onClick={onBack} className="bg-white p-3 rounded-full shadow text-peppa-mud hover:bg-gray-100 flex items-center justify-center">
+        <button onClick={onBack} className="bg-white p-3 rounded-full shadow text-peppa-mud hover:bg-gray-100 flex items-center justify-center transition-transform active:scale-95">
           <Home size={24} />
         </button>
         <div className="bg-white px-4 py-2 rounded-full shadow text-peppa-dress font-bold">
@@ -159,7 +158,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ data, onFinish, onBack }) => {
 };
 
 const CardComponent: React.FC<{ card: CardItem, onClick: () => void }> = ({ card, onClick }) => {
-  let baseClasses = "relative flex-1 rounded-xl shadow-sm border-2 flex flex-col items-center justify-center p-1 md:p-2 cursor-pointer transition-all active:scale-95 select-none touch-manipulation min-h-[70px] md:min-h-[85px]";
+  let baseClasses = "relative flex-1 rounded-xl shadow-sm border-2 flex flex-col items-center justify-center p-1 md:p-2 cursor-pointer transition-all active:scale-95 select-none touch-manipulation min-h-[70px] md:min-h-[85px] overflow-hidden";
   let colorClasses = "";
   
   if (card.isMatched) {

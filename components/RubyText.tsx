@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { FuriganaSegment } from '../types';
 
@@ -8,9 +7,8 @@ interface RubyTextProps {
 
 const RubyText: React.FC<RubyTextProps> = ({ segments }) => {
   return (
-    <div className="flex flex-nowrap items-end justify-center whitespace-nowrap overflow-visible">
+    <div className="flex flex-nowrap items-end justify-center whitespace-nowrap">
       {segments.map((seg, idx) => {
-        // If there is furigana, render ruby tag
         if (seg.furigana) {
           return (
             <ruby key={idx} className="flex flex-col items-center mx-[1px]">
@@ -21,7 +19,6 @@ const RubyText: React.FC<RubyTextProps> = ({ segments }) => {
             </ruby>
           );
         }
-        // If no furigana, just render text aligned to bottom
         return (
           <span key={idx} className="text-lg md:text-xl font-bold leading-none mx-[1px] py-[1px] mb-[15px] md:mb-[17px]">
             {seg.text}

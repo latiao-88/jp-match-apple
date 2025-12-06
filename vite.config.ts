@@ -4,9 +4,16 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   base: './', 
+  define: {
+    // This is CRITICAL for preventing crashes in libraries that check process.env
+    'process.env': {}
+  },
   build: {
-    target: 'es2015', // 关键：兼容旧版 iOS 浏览器
+    // Downgrade target for older iOS compatibility
+    target: 'es2015',
     outDir: 'dist',
     assetsDir: 'assets',
+    // Ensure CSS is extracted properly
+    cssCodeSplit: true,
   }
 });
