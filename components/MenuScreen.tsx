@@ -60,7 +60,7 @@ const MenuScreen: React.FC<MenuScreenProps> = ({ onStart }) => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-4 flex flex-col gap-6 pb-12">
+    <div className="w-full max-w-md mx-auto p-4 flex flex-col gap-6 pb-24">
       {/* Cartoon Piggy Decoration */}
       <div className="flex justify-center mb-[-10px]">
          <div className="relative w-24 h-20">

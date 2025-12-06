@@ -108,19 +108,19 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-peppa-sky relative overflow-hidden">
+    <div className="min-h-screen bg-peppa-sky relative overflow-y-auto">
       {/* Background decorations - Hills */}
       <div className="fixed bottom-0 left-0 right-0 h-1/4 bg-peppa-grass rounded-t-[50%] scale-125 translate-y-10 z-0 pointer-events-none"></div>
       
       {/* Main Content Area */}
-      <div className="relative z-10 w-full min-h-screen flex items-center justify-center">
+      <div className="relative z-10 w-full min-h-screen flex flex-col items-center justify-start pt-10 pb-20">
         
         {gameState === GameState.MENU && (
           <MenuScreen onStart={startGame} />
         )}
 
         {gameState === GameState.LOADING && (
-          <div className="bg-white p-8 rounded-3xl shadow-xl flex flex-col items-center">
+          <div className="bg-white p-8 rounded-3xl shadow-xl flex flex-col items-center mt-20">
              {/* Jumping Pig Animation */}
              <div className="mb-6 animate-bounce">
                 <div className="relative w-16 h-14 bg-peppa-pink rounded-[40%_60%_60%_40%/50%_50%_50%_50%] border-2 border-peppa-darkPink">
@@ -142,7 +142,7 @@ const AppContent: React.FC = () => {
         )}
 
         {gameState === GameState.ERROR && (
-          <div className="bg-white p-8 rounded-3xl shadow-xl flex flex-col items-center text-center max-w-xs">
+          <div className="bg-white p-8 rounded-3xl shadow-xl flex flex-col items-center text-center max-w-xs mt-20">
              <div className="text-4xl mb-4">🐷💦</div>
              <p className="text-lg font-bold text-peppa-dress mb-4">Oh dear!</p>
              <p className="text-gray-600 mb-6">{loadingError || "Something went wrong."}</p>
@@ -161,7 +161,7 @@ const AppContent: React.FC = () => {
         )}
 
         {gameState === GameState.RESULT && (
-          <div className="bg-white p-8 rounded-3xl shadow-2xl flex flex-col items-center text-center border-4 border-peppa-pink animation-bounce-in mx-4 w-full max-w-sm">
+          <div className="bg-white p-8 rounded-3xl shadow-2xl flex flex-col items-center text-center border-4 border-peppa-pink animation-bounce-in mx-4 w-full max-w-sm mt-20">
             <div className="text-6xl mb-4 animate-bounce">🎉</div>
             <h2 className="text-3xl font-bold text-peppa-dress mb-2">Excellent!</h2>
             <p className="text-peppa-mud mb-6 font-bold">完成所有配对!</p>
